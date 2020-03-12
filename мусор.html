@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <h1>String: {{ name }}</h1>
+    <h1>Sum: {{10 + 60}}</h1>
+    <h2>Numer: {{ numer }}</h2>
+    <h1>Method: {{ sayHell() }}</h1>
+    <h1>if statement: {{isOK ? 'I am ok': 'not ok'}}</h1>
+    <h1> Func: {{string.split('')}}</h1>
+    <h2>
+        <a v-bind:href="url">Google</a>
+    </h2>
+    <h2>счетчик = {{countere}}</h2>
+    <button v-on:click="rise(5)">Увеличить на 5</button>
+    <h2 v-html="her"></h2>
+    <p> ... </p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            name: 'Vue!',
+            numer: 100,
+            isOK: false,
+            string: 'My name is Abay',
+            url: 'http://google.ru',
+            her:'<a href = "http://google.com"> Google </a>',
+            countere:0
+        },
+        methods:{
+            sayHell:function(){
+                return 'I am func'
+            },
+            
+            
+            rise:function(num){
+                this.countere+=num
+            }
+            }
+    })
+
+</script>
+</body>
+</html>
