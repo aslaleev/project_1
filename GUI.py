@@ -1,8 +1,11 @@
 import json
 from flask import Flask , render_template
 from read_by_report import vivod_dannih
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)
 
 tasks = vivod_dannih()
 
@@ -34,7 +37,6 @@ def get_task(task_id):
     for n in range(len(tasks)):
         if int(tasks[n]['id']) == task_id:
             return tasks[n]
-
 
 
 
