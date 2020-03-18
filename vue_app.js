@@ -4,7 +4,8 @@ new Vue({
         naimenovaniya: 'Виды отчета:',
         selected: '',
         spisok:[],
-        man:{id:1,"name": 'Vlad' ,"age": 20, param1:'', param2:'второй'}
+        man:[],
+        ud:0
         
     },
     mounted() {
@@ -16,16 +17,33 @@ new Vue({
                 .then(response => {
                     
                     this.spisok = response.data.tasks
-                    console.log(spisok)    
+
                     
                 })
                 .catch(function (error) {
                     console.log(error);
                 })
-                .finally(() => {console.log(this.spisok); this.reRender()});           
+                .finally(() => { this.reRender()});           
         },
         reRender(){
             this.$forceUpdate()
+        },
+        onChange(event) {
+            ud = event.target.value
+            console.log(ud)
+            
+            axios.get('<div>http://127.0.0.1:5000/todo/api/v1.0/tasks/{{ud}}</div>')
+            .then(response => {
+                    
+                this.man = response.data
+                console.log(man)
+
+                
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+            .finally(() => { console.log(this.man) ;this.reRender()});   
         }
     },
 })
