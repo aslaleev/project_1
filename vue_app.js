@@ -29,10 +29,8 @@ new Vue({
             this.$forceUpdate()
         },
         onChange(event) {
-            ud = event.target.value
-            console.log(ud)
             
-            axios.get('<div>http://127.0.0.1:5000/todo/api/v1.0/tasks/{{ud}}</div>')
+            axios.get('http://127.0.0.1:5000/todo/api/v1.0/tasks/3')
             .then(response => {
                     
                 this.man = response.data
@@ -43,7 +41,7 @@ new Vue({
             .catch(function (error) {
                 console.log(error);
             })
-            .finally(() => { console.log(this.man) ;this.reRender()});   
+            .finally(() => { this.reRender()});   
         }
     },
 })
