@@ -2,6 +2,6 @@ id,reportname,reportdescription,param1,param2,param3,queries
 1,Отчет для прямого канала продаж,Долганов,Дата с,Дата по, ,select * from dual
 2,Отчет для агентского канала продаж,Мерзликин,Дата с,Дата по, ,select * from dual
 3,Отчет о продажах,Кучугурин,Дата с, , ,select * from dual
-4,Отчет по задачам,Аслалеев,Дата с,Дата по, ,select * from dual
+4,Отчет по задачам,Аслалеев,Дата с,Дата по,93,select * from dual
 5,Отчет по суб учеткам,Юсупов,Дата с, ,86,select * from dual
 6,Отчет по учеткам,Мазуров,Дата с, ,12:12,select * from dual

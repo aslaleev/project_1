@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
- 
-
     <div id="app">        
         <div class="wrapper" style="padding: 20px 100px 0; display: flex; flex-direction: column; align-items:center;">
             <h2>{{naimenovaniya}}</h2>
@@ -17,26 +15,21 @@
             <option v-for="(option) in spisok" :value="option.id">{{option.id}}. {{option.reportname }}</option>
         </select>
         <hr>
-        <form style="width: 100%;">
-<!--            <div class="form-row">-->
-<!--              <div class="form-group col-md-6">-->
-<!--                <label>1</label>-->
-<!--                <input type="date" class="form-control">-->
-<!--              </div>-->
-<!--              <div class="form-group col-md-6">-->
-<!--                <label>2</label>-->
-<!--                <input type="date" class="form-control">-->
-<!--              </div>-->
-<!--            </div>-->
-            <div class="form-row">
-            <div v-for="ins in man">
-                 <label>{{ins}}</label>
-                 <input type="text" class="form-group col-md-4">
+            <div class="add-item-form">
+                <form style="width: 100%;">
+                    <div class="form-row">
+                    <div v-for="ins in man">
+                         <label>{{ins}}</label>
+                         <input  v-model="newItem" type="text"  placeholder="Введите данные" class="form-group col-md-8">
+                    </div>
+                    </div>
+                    <hr>
+                    <button type="button" class="btn btn-primary" style="width:100%;" @click="items.push(newItem)">Сформировать</button>
+
+
+                </form>
             </div>
-            </div> 
-            <hr>
-            <button type="submit" class="btn btn-primary">Сформировать</button>
-        </form>
+
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
