@@ -6,8 +6,8 @@ new Vue({
         spisok:[],
         man:[],
         ud:0,
-        newItem:'',
-        items:[]
+        inputdata:[],
+        hz:[]
     },
     mounted() {
         this.tasklist();
@@ -39,17 +39,18 @@ new Vue({
             .finally(() => { this.reRender()});   
         },
 
-//        CreateExcel(event){
-//            console.log(event.target.value)
-////            axios.get(`http://127.0.0.1:5000/todo/api/v1.0/export/${event.target.value}/${event.target.value}/${event.target.value}`)
-////            .then(response => {
-////                this.spisok = response.data
-////                })
-////            .catch(function (error) {
-////                console.log(error);
-////            })
-////            .finally(() => { this.reRender()});
-//        }
+        CreateExcel(event){
+            console.log(event.target.value)
+            axios.get(`http://127.0.0.1:5000/todo/api/v1.0/export/${this.inputdata[0]}/${this.inputdata[1]}/${this.inputdata[2]}`)
+            .then(response => {
+                this.hz = response.data
+                console.log(this.hz)
+                })
+            .catch(function (error) {
+                console.log(error);
+            })
+            .finally(() => { this.reRender()});
+        }
 
     }
 })

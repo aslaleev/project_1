@@ -10,7 +10,7 @@
     <div id="app">        
         <div class="wrapper" style="padding: 20px 100px 0; display: flex; flex-direction: column; align-items:center;">
             <h2>{{naimenovaniya}}</h2>
-        <select v-model="selected" class="form-control form-control-lg" @change="onChange($event)">
+        <select v-model="selected" class="form-control form-control-lg" type="submit" @change="onChange($event)">
             <option disabled value="">Выберите один из вариантов</option>
             <option v-for="(option) in spisok" :value="option.id">{{option.id}}. {{option.reportname }}</option>
         </select>
@@ -20,11 +20,13 @@
                     <div class="form-row">
                     <div v-for="ins in man">
                          <label>{{ins}}</label>
-                         <input  v-model="newItem" type="text"  placeholder="Введите данные" class="form-group col-md-8">
+                         <input  type="text"  placeholder="Введите данные" class="form-group col-md-8" @change="inputdata.unshift(event.target.value)">
                     </div>
                     </div>
                     <hr>
-                    <button type="button" class="btn btn-primary" style="width:100%;" @click="items.push(newItem)">Сформировать</button>
+                    <button type="button" class="btn btn-primary" style="width:100%;" @click="CreateExcel($event)">Сформировать</button>
+                    <p>{{inputdata}}</p>
+
 
 
                 </form>
