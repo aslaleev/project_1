@@ -51,7 +51,7 @@ def export(param1,param2,select):
     with open('export_file.csv', "w", newline="") as file:
         writer = csv.writer(file)
         writer.writerows(ss)
-        return '1'
+        return "C:/Users/User/PycharmProjects/project_1/expirience/export_file.csv"
 
 
 
