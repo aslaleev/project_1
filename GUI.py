@@ -2,7 +2,9 @@ import json
 from flask import Flask , render_template
 from read_by_report import vivod_dannih
 from flask_cors import CORS
+from flask import send_from_directory
 import csv
+import mysql.connector
 
 
 app = Flask(__name__)
@@ -25,13 +27,9 @@ def get_tasks(tasks):
     return m
 
 
-
-
 @app.route('/todo/api/v1.0/taskslist', methods=['GET'])
 def get_tasklisk():
     return ({'tasks': tasks})
-
-
 
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['GET'])
 def get_task(task_id):
@@ -45,14 +43,41 @@ def get_task(task_id):
             return ke
 
 
-@app.route('/todo/api/v1.0/export/<string:param1>/<string:param2>/<string:select>', methods=['GET'])
-def export(param1,param2,select):
-    ss = str (select + ' where datecreate > ' + param1 + ' and datecreate < ' + param2)
+@app.route('/todo/api/v1.0/export/<string:param1>/<string:param2>', methods=['GET'])
+def report(select,param1,param2):
+    conn = mysql.connector.connect(host="localhost",
+                                   user='root',
+                                   password='12345',
+                                   database='Договора',
+                                   auth_plugin='mysql_native_password')
+    if param1=='' and param2=='':
+        ss = str (select)
+    elif param2=='':
+        ss = str (select + ' where datacreate > ' + "param1")
+    elif param1 == '':
+        ss = str (select + ' where ' + ' datacreate < ' + param2)
+    else:
+        ss = str (select + ' where datacreate > ' + param1 + ' and datacreate < ' + param2)
+    c = conn.cursor()
+    list = []
+    c.execute(ss)
+    for row in c:
+        minilist = []
+        for i in range(len(row)):
+            minilist.append(row[i])
+        list.append(minilist)
     with open('export_file.csv', "w", newline="") as file:
         writer = csv.writer(file)
-        writer.writerows(ss)
-        return "C:/Users/User/PycharmProjects/project_1/expirience/export_file.csv"
+        writer.writerows(list)
 
+@app.route('/todo/api/v1.0/uploads/<path:filename>', methods=['GET', 'POST'])
+def download_file(filename):
+    return send_from_directory("/Users/User/PycharmProjects/project_1/expirience", filename=filename, as_attachment=True)
+
+
+@app.route('/todo/api/v1.0/tasks/name', methods=['GET'])
+def file_name():
+    return "export_file.csv"
 
 
 if __name__ == '__main__':

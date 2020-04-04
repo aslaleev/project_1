@@ -1,41 +1,37 @@
 # Сервис для вывода из БД csv файл с данными по sql запросу
 import cx_Oracle
-import csv
 
-
-def report(select):
-    # dsn=cx_Oracle.makedsn('localhost','3306',service_name='MySQL@localhost:3306')
-    # conn = cx_Oracle.connect(user= 'root',password = '12345', dsn=dsn)
-    # c = conn.cursor()
-    connstr = 'root/Mysql@localhost:3306/orcl'
-    conn = cx_Oracle.connect(connstr)
+def report(select,param1,param2):
+    conn = mysql.connector.connect(host="localhost",
+                                   user='root',
+                                   password='12345',
+                                   database='Договора',
+                                   auth_plugin='mysql_native_password')
+    if param1=='' and param2=='':
+        ss = str (select)
+    elif param2=='':
+        ss = str (select + ' where datacreate > ' + param1)
+    elif param1 == '':
+        ss = str (select + ' where ' + ' datacreate < ' + param2)
+    else:
+        ss = str (select + ' where datacreate > ' + param1 + ' and datacreate < ' + param2)
     c = conn.cursor()
     list = []
-
-    with open('read.txt', 'r', encoding='utf-8') as tt:
-        c.execute(select)
+    c.execute(ss)
     for row in c:
         minilist = []
         for i in range(len(row)):
             minilist.append(row[i])
         list.append(minilist)
-
-    with open('1.csv', "w", newline="") as file:
+    with open('export_file.csv', "w", newline="") as file:
         writer = csv.writer(file)
         writer.writerows(list)
 
 
-def export(param1,param2,select):
-    ss = str (select + 'where datecreate > ' + param1 + 'and datecreate < ' + param2)
-    print(ss)
-
-    with open('export_file.csv', "w", newline="") as file:
-        writer = csv.writer(file)
-        writer.writerows(ss)
 
 
 
-f = export('22.02.19', '12.02.20', 'select * from contractins')
 
+#f = export('22.02.19', '12.02.20', 'select * from contractins')
 
-# f = report('select * from product c')
+f = report('select productid,name from product', '', '')
