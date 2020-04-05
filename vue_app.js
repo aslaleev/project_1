@@ -72,7 +72,7 @@ new Vue({
         exportFile() {
             axios.get(`http://127.0.0.1:5000/todo/api/v1.0/export/${this.inputdata[0]}/${this.inputdata[1]}`)
             .then(response => {
-                this.downloadURL(`http://127.0.0.1:5000/todo/api/v1.0/tasks/name`)
+                axios.get(`http://127.0.0.1:5000/todo/api/v1.0/tasks/name`)
                 .then(response => {
                     this.downloadURL(`http://127.0.0.1:5000/todo/api/v1.0/uploads/${response.data}`)
                 })

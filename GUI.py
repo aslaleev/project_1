@@ -1,11 +1,10 @@
-import json
 from flask import Flask , render_template
 from read_by_report import vivod_dannih
 from flask_cors import CORS
 from flask import send_from_directory
 import csv
 import mysql.connector
-
+from datetime import date
 
 app = Flask(__name__)
 CORS(app)
@@ -44,7 +43,7 @@ def get_task(task_id):
 
 
 @app.route('/todo/api/v1.0/export/<string:param1>/<string:param2>', methods=['GET'])
-def report(select,param1,param2):
+def report(param1,param2):
     conn = mysql.connector.connect(host="localhost",
                                    user='root',
                                    password='12345',
@@ -52,12 +51,14 @@ def report(select,param1,param2):
                                    auth_plugin='mysql_native_password')
     if param1=='' and param2=='':
         ss = str (select)
+        ss = " select * from product"
     elif param2=='':
-        ss = str (select + ' where datacreate > ' + "param1")
+        ss = "select * from product where datacreate > '%s' " % (param1)
+
     elif param1 == '':
-        ss = str (select + ' where ' + ' datacreate < ' + param2)
+        ss = "select * from product where datacreate < '%s' " % ( param2)
     else:
-        ss = str (select + ' where datacreate > ' + param1 + ' and datacreate < ' + param2)
+        ss = "select * from product where datacreate > '%s' and datacreate < '%s' " % ( param1, param2)
     c = conn.cursor()
     list = []
     c.execute(ss)
@@ -69,6 +70,8 @@ def report(select,param1,param2):
     with open('export_file.csv', "w", newline="") as file:
         writer = csv.writer(file)
         writer.writerows(list)
+    return '1'
+
 
 @app.route('/todo/api/v1.0/uploads/<path:filename>', methods=['GET', 'POST'])
 def download_file(filename):
