@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Проект</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
-<body style="background-image: url(C:/Users/User/PycharmProjects/project_1/expirience/1.jpg)">
+<body style="margin-top: 0%;
+background-image: url(C:/Users/User/PycharmProjects/project_1/expirience/1.jpg)">
     <div id="app">
         <div class="wrapper" style="padding: 20px 100px 0; display: flex; flex-direction: column; align-items:center;">
             <h2>{{naimenovaniya}}</h2>
-        <select v-model="selected" class="form-control form-control-lg" type="submit" @change="onChange($event)">
+        <select v-model="selected" style="padding: 5px 10px 0;" class="form-control form-control-lg" type="submit" @change="onChange($event)">
             <option disabled value="">Выберите один из вариантов</option>
             <option v-for="(option) in spisok" :value="option.id">{{option.id}}. {{option.reportname }}</option>
         </select>
         <hr>
-            <div class="add-item-form" style="padding: 20px 100px 0; display: flex; flex-direction: column; align-items:center;">
+            <div id="app" class="add-item-form" style="padding: 220px 10px 0;">
+                <strong>Дата c:</strong> <input v-model="date1" type="date" class="form-group col-md-8">
+            </div>
+            <div id="app" class="add-item-form" >
+                <strong>Дата по:</strong>  <input v-model="date2" type="date" class="form-group col-md-8">
+            </div>
+
+            <div class="add-item-form" style="display: flex; flex-direction: column; align-items:center;">
                 <form style="width: 100%;">
-                    <div class="form-row">
-                    <div v-for="ins in man">
-                         <label>{{ins}}</label>
-                         <input  type="text"  placeholder="Введите данные" class="form-group col-md-8" @change="inputdata.unshift(event.target.value)">
-                    </div>
-                    </div>
+<!--                    <div class="form-row">-->
+<!--                    <div v-for="ins in man">-->
+<!--                         <label>{{ins}}</label>-->
+<!--                         <input  type="text"  class="form-group col-md-8" @change="inputdata.unshift(event.target.value)">-->
+<!--                    </div>-->
+<!--                    </div>-->
                     <hr>
-                    <button type="button" style="width:100%;" @click="exportFile" >Сформировать</button>
-                    <p>{{inputdata}}</p>
+                    <button type="button" style="width:100%; background: #D2691E; color: #fff ; vertical-align: middle" class="bttr tick" @click="exportFile" >Сформировать</button>
+<!--                    <p>{{inputdata}}</p>-->
                 </form>
             </div>
 
