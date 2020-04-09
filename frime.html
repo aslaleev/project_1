@@ -14,7 +14,7 @@ background-image: url(C:/Users/User/PycharmProjects/project_1/expirience/1.jpg)"
             <h2>{{naimenovaniya}}</h2>
         <select v-model="selected" style="padding: 5px 10px 0;" class="form-control form-control-lg" type="submit" @change="onChange($event)">
             <option disabled value="">Выберите один из вариантов</option>
-            <option v-for="(option) in spisok" :value="option.id">{{option.id}}. {{option.reportname }}</option>
+            <option v-for="(index, option) in spisok "> {{option+1}}. {{index}} </option>
         </select>
         <hr>
             <div id="app" class="add-item-form" style="padding: 220px 10px 0;">
@@ -26,15 +26,8 @@ background-image: url(C:/Users/User/PycharmProjects/project_1/expirience/1.jpg)"
 
             <div class="add-item-form" style="display: flex; flex-direction: column; align-items:center;">
                 <form style="width: 100%;">
-<!--                    <div class="form-row">-->
-<!--                    <div v-for="ins in man">-->
-<!--                         <label>{{ins}}</label>-->
-<!--                         <input  type="text"  class="form-group col-md-8" @change="inputdata.unshift(event.target.value)">-->
-<!--                    </div>-->
-<!--                    </div>-->
                     <hr>
                     <button type="button" style="width:100%; background: #D2691E; color: #fff ; vertical-align: middle" class="bttr tick" @click="exportFile" >Сформировать</button>
-<!--                    <p>{{inputdata}}</p>-->
                 </form>
             </div>
 

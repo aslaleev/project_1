@@ -7,10 +7,12 @@ new Vue({
         date2:'',
         spisok:[],
         man:[],
+        man2:[],
         ud:0,
         inputdata:[],
         hz:[],
-        filename:'export_file'
+        filename:'export_file',
+        id:0
     },
     mounted() {
         this.tasklist();
@@ -41,8 +43,16 @@ new Vue({
             this.$forceUpdate()
         },
         onChange(event) {
-//            console.log(event.target.value)
-            axios.get(`http://127.0.0.1:5000/todo/api/v1.0/tasks/${event.target.value}`)
+           this.date1 = '';
+           this.date2 = '';
+           localStorage.clear()
+           for (i of event.target.value) {
+                if (i=='.'){
+                    break;
+                }
+                id = i;
+           }
+            axios.get(`http://127.0.0.1:5000/todo/api/v1.0/tasks/${id}`)
             .then(response => {
                 this.man = response.data
                 console.log(this.man)
@@ -52,19 +62,6 @@ new Vue({
             })
             .finally(() => { this.reRender()});   
         },
-//
-//        CreateExcel(event){
-//            console.log(event.target.value)
-//            axios.get(`http://127.0.0.1:5000/todo/api/v1.0/export/${this.date1}/${this.date2}`)
-//            .then(response => {
-//                this.hz = response.data
-//                console.log(this.hz)
-//                })
-//            .catch(function (error) {
-//                console.log(error);
-//            })
-//            .finally(() => { this.reRender()});
-//        },
         downloadURL(url) {
             var hiddenIFrameID = 'hiddenDownloader',
                 iframe = document.getElementById(hiddenIFrameID);
@@ -77,9 +74,10 @@ new Vue({
             iframe.src = url;
         },
         exportFile() {
-            axios.get(`http://127.0.0.1:5000/todo/api/v1.0/export/${this.date1}/${this.date2}`)
+            axios.get(`http://127.0.0.1:5000/todo/api/v1.0/export/${this.man}/${this.date1}/${this.date2}`)
             .then(response => {
-                axios.get(`http://127.0.0.1:5000/todo/api/v1.0/tasks/name`)
+                localStorage.clear();
+                axios.get(`http://127.0.0.1:5000/todo/api/v1.0/tasks/${response.data}`)
                 .then(response => {
                     this.downloadURL(`http://127.0.0.1:5000/todo/api/v1.0/uploads/${response.data}`)
                 })
